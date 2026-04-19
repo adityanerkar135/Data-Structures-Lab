@@ -1,0 +1,55 @@
+Value Added Problem – 01
+Problem 1
+Given a Binary Search Tree and a range [low, high]. Find all the numbers in the BST that
+lie in the given range.
+Note: Element greater than or equal to root go to the right side.
+Concept: Binary Search Tree
+CODE :
+#include <stdio.h>
+#include <stdlib.h>
+struct node {
+int data;
+struct node *left, *right;
+};
+typedef struct node* NODE;
+NODE createNode(int data) {
+NODE newNode = (NODE)malloc(sizeof(struct node));
+newNode->data = data;
+newNode->left = NULL;
+newNode->right = NULL;
+return newNode;
+}
+NODE insert(NODE root, int data) {
+if (root == NULL)
+return createNode(data);
+if (data < root->data)
+root->left = insert(root->left, data);
+else
+root->right = insert(root->right, data);
+return root;
+}
+void printRange(NODE root, int low, int high) {
+if (root == NULL)
+return;
+if (root->data > low)
+printRange(root->left, low, high);
+if (root->data >= low && root->data <= high)
+printf("%d ", root->data);
+if (root->data < high)
+printRange(root->right, low, high);
+}
+int main() {
+NODE root = NULL;
+int n, x, low, high;
+printf("Aditya Nerkar\n");
+printf("25070521198\n");
+printf("Batch D1\n");
+scanf("%d", &n);
+for (int i = 0; i < n; i++) {
+scanf("%d", &x);
+root = insert(root, x);
+}
+scanf("%d %d", &low, &high);
+printRange(root, low, high);
+return 0;
+}
